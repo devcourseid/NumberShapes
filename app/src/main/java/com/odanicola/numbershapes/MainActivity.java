@@ -49,18 +49,31 @@ public class MainActivity extends AppCompatActivity {
     public void testNumber(View view){
         Number user = new Number();
         EditText userNumber = (EditText) findViewById(R.id.usersNumber);
+        String message = "";
+
         if(userNumber.getText().toString() != ""){
             user.number = Integer.parseInt(userNumber.getText().toString());
 
             if(user.isTriangle()){
-                makeToast("" + user.number + " is a triangle number");
-                resetField(userNumber);
-            }else if(user.isSquare()){
-                makeToast("" + user.number + " is a square number");
-                resetField(userNumber);
+                if(user.isSquare()){
+                    message = user.number + " is both triangle and square number";
+                    makeToast(message);
+                    resetField(userNumber);
+                }else{
+                    message = user.number + " is triangle but not square number";
+                    makeToast(message);
+                    resetField(userNumber);
+                }
             }else{
-                makeToast("" + user.number + " is both triangle and square number");
-                resetField(userNumber);
+                if(user.isSquare()){
+                    message = user.number + " is square but not triangle number";
+                    makeToast(message);
+                    resetField(userNumber);
+                }else{
+                    message = user.number + " is neither triangle nor square";
+                    makeToast(message);
+                    resetField(userNumber);
+                }
             }
         }else{
             makeToast("Please input a number to test");
